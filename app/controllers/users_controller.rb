@@ -96,7 +96,7 @@ class UsersController < ApplicationController
 
 
   def conver_params(str)
-    JSON.parser(str)
+    JSON.parse(str)
   end
 
 
