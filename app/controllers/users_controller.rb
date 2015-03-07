@@ -4,23 +4,18 @@ class UsersController < ApplicationController
   def create
     # params = params.to_hash
     Rails.logger.info(params)
-    # if User.find_by(user_name: params["params"]["user_name"]).present?
-    #   return render json: {errorcode: 1, message: '用户名已被占用.'}
-    # end
-    #
-    # if User.find_by(phone_no: params["params"]["phone_no"]).present?
-    #   return render json: {errorcode: 1, message: '手机号已被占用.'}
-    # end
-
-
-    user = User.new(user_name: params["params"]["user_name"], phone_no: params["params"]["phone_no"],
-                    icon_path: params[:face], password: params["params"]["password"])
+    attrs = conver_params(params["params"])
+    user = User.new(attrs, icon_path: params[:face])
     # user.build_whos_user_device(params[:params])
-    user.save
-    render :json => {user_name: user.user_name, phone_no: user.phone_no,
-                     icon_path: user.icon_path.url(:thumb), user_id: user.id,
-                     errorcode: 0, message: '注册成功'
-           }
+    if user.save
+      render :json => {user_name: user.user_name, phone_no: user.phone_no,
+                       icon_path: user.icon_path.url(:thumb), user_id: user.id,
+                       errorcode: 0, message: '注册成功'
+             }
+
+    else
+      render json: {errorcode: 1, message: '手机号已被占用.'}
+    end
 
   end
 
@@ -97,6 +92,11 @@ class UsersController < ApplicationController
                 icon_path: user.icon_path.url(:thumb), status: user.status, id: user.id}
     end
     jsons
+  end
+
+
+  def conver_params(str)
+    JSON.parser(str)
   end
 
 
