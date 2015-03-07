@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_one :whos_user_device
 
 
-  validates_uniqueness_of :user_name, :phone_no, :on => :create
+  # validates_uniqueness_of :user_name, :phone_no, :on => :create
   mount_uploader :icon_path, AvatarUploader
 
   def self.auth(phone, password)
