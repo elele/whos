@@ -2,11 +2,9 @@ class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
   # 注册用户
   def create
-    # params = params.to_hash
-    Rails.logger.info(params)
     attrs = conver_params(params["params"])
-    user = User.new(attrs, icon_path: params["face"])
-    # user.build_whos_user_device(params[:params])
+    user = User.new(attrs)
+    user.icon_path = params["face"]
     if user.save
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
                        icon_path: user.icon_path.url(:thumb), user_id: user.id,
