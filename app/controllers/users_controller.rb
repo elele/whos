@@ -2,15 +2,15 @@ class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
   # 注册用户
   def create
-    params = params.to_hash
+    # params = params.to_hash
     Rails.logger.info(params)
-    if User.find_by(user_name: params["params"]["user_name"]).present?
-      return render json: {errorcode: 1, message: '用户名已被占用.'}
-    end
-
-    if User.find_by(phone_no: params["params"]["phone_no"]).present?
-      return render json: {errorcode: 1, message: '手机号已被占用.'}
-    end
+    # if User.find_by(user_name: params["params"]["user_name"]).present?
+    #   return render json: {errorcode: 1, message: '用户名已被占用.'}
+    # end
+    #
+    # if User.find_by(phone_no: params["params"]["phone_no"]).present?
+    #   return render json: {errorcode: 1, message: '手机号已被占用.'}
+    # end
 
 
     user = User.new(user_name: params["params"]["user_name"], phone_no: params["params"]["phone_no"],
