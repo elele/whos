@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     # params = params.to_hash
     Rails.logger.info(params)
     attrs = conver_params(params["params"])
-    user = User.new(attrs, icon_path: params[:face])
+    user = User.new(attrs, icon_path: params["face"])
     # user.build_whos_user_device(params[:params])
     if user.save
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
