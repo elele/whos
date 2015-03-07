@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     attrs = conver_params(params["params"])
     user = User.new(attrs)
     user.icon_path = params["face"]
-    if user.save
+    if user.save!
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
                        icon_path: user.icon_path.url(:thumb), user_id: user.id,
                        errorcode: 0, message: '注册成功'
