@@ -3,10 +3,10 @@ class UsersController < ApplicationController
   # 注册用户
   def create
     user = User.new(user_name: params[:user_name], phone_no: params[:phone_no],
-                    icon_path: params[:icon_path], password: params[:password], id: user.id)
+                    icon_path: params[:icon_path], password: params[:password])
     if user.save
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
-                       icon_path: user.icon_path.url(:thumb), status: user.status}
+                       icon_path: user.icon_path.url(:thumb), status: user.status, user_id: user.id}
     else
       render json: {errorcode: 1, message: '用户名或手机号已被占用.', status: user.status}
     end
