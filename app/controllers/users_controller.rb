@@ -50,6 +50,10 @@ class UsersController < ApplicationController
 
   end
 
+  def show
+    render json: {message: 'ok'}
+  end
+
   private
 
   def users_json(users)
