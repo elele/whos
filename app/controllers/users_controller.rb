@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def create
 
     user = User.new(user_name: params["params"]["user_name"], phone_no: params["params"]["phone_no"],
-                    icon_path: params["params"]["icon_path"], password: params["params"]["password"])
+                    icon_path: params[:face], password: params["params"]["password"])
     # user.build_whos_user_device(params[:params])
     if user.save
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
@@ -64,6 +64,11 @@ class UsersController < ApplicationController
 
   def show
     render json: {message: 'ok'}
+  end
+
+
+  def set_device
+
   end
 
   private
