@@ -27,7 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'carrierwave'
 gem "mini_magick"
 gem 'jpush', git: 'git@github.com:jpush/jpush-api-ruby-client.git'
-gem 'passenger'
+gem 'passenger', '~>4.0.59'
 
 
 # Use ActiveModel has_secure_password
