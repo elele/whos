@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     user = User.new(user_name: params["params"]["user_name"], phone_no: params["params"]["phone_no"],
                     icon_path: params[:face], password: params["params"]["password"])
     # user.build_whos_user_device(params[:params])
-    if user.save!
+    if user.save
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
                        icon_path: user.icon_path.url(:thumb), user_id: user.id,
                        errorcode: 0, message: '注册成功'
