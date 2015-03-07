@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_name: params[:user_name], phone_no: params[:phone_no],
                     icon_path: params[:icon_path], password: params[:password])
+    user.build_whos_user_device(params[:params])
     if user.save
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
                        icon_path: user.icon_path.url(:thumb), user_id: user.id,
@@ -18,6 +19,7 @@ class UsersController < ApplicationController
   def login
     user = User.auth(params[:phone_no], params[:password])
     if user
+      user.whos_user_device.update_attributes(params[:params])
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
                        icon_path: user.icon_path.url(:thumb), status: user.status, id: user.id}
     else
