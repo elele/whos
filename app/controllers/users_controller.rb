@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
                        icon_path: user.icon_path.url(:thumb), status: user.status, user_id: user.id}
     else
-      render json: {errorcode: 1, message: '用户名或手机号已被占用.', status: user.status}
+      render json: {errorcode: 1, message: '用户名或手机号已被占用.'}
     end
 
   end
