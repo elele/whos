@@ -3,8 +3,8 @@ class UsersController < ApplicationController
   # 注册用户
   def create
 
-    user = User.new(user_name: params[:params][:user_name], phone_no: params[:params][:phone_no],
-                    icon_path: params[:params][:icon_path], password: params[:params][:password])
+    user = User.new(user_name: params["params"]["user_name"], phone_no: params["params"]["phone_no"],
+                    icon_path: params["params"]["icon_path"], password: params["params"]["password"])
     # user.build_whos_user_device(params[:params])
     if user.save
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
