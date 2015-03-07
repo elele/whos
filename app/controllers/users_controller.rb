@@ -2,9 +2,10 @@ class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
   # 注册用户
   def create
-    user = User.new(user_name: params[:user_name], phone_no: params[:phone_no],
-                    icon_path: params[:icon_path], password: params[:password])
-    user.build_whos_user_device(params[:params])
+
+    user = User.new(user_name: params[:params][:user_name], phone_no: params[:params][:phone_no],
+                    icon_path: params[:params][:icon_path], password: params[:params][:password])
+    # user.build_whos_user_device(params[:params])
     if user.save
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
                        icon_path: user.icon_path.url(:thumb), user_id: user.id,
@@ -17,13 +18,13 @@ class UsersController < ApplicationController
   end
 
   def login
-    user = User.auth(params[:phone_no], params[:password])
+    user = User.auth(params[:params][:phone_no], params[:params][:password])
     if user
-      user.whos_user_device.update_attributes(params[:params])
+      # user.whos_user_device.update_attributes(params[:params])
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
                        icon_path: user.icon_path.url(:thumb), status: user.status, id: user.id}
     else
-      render json: {errorcode: 1, message: '用户名或密码错误', status: user.status}
+      render json: {errorcode: 1, message: '用户名或密码错误'}
     end
 
   end
