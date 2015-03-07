@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post :add_friend
       post :get_friend
       post :send_message
+      post :messages
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

@@ -19,7 +19,7 @@ module OPE
           # end
       rescue Exception => ex
         Rails.logger.debug ex.inspect
-        PushException.create!(exception: ex.inspect, push: self, platform: platform, result: push_result)
+        # PushException.create!(exception: ex.inspect, push: self, platform: platform, result: push_result)
       end
     end
 

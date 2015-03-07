@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
                        icon_path: user.icon_path.url(:thumb), status: user.status}
     else
-      render json: {errorcode: 1, message: '用户名已被占用.', status: user.status}
+      render json: {errorcode: 1, message: '用户名或手机号已被占用.', status: user.status}
     end
 
   end
@@ -50,11 +50,27 @@ class UsersController < ApplicationController
 
   end
 
+  def messages
+    user = User.find params[:id]
+    messages = user.whos_custom_messages
+    render json: {messages: messages_json(messages)}
+  end
+
   def show
     render json: {message: 'ok'}
   end
 
   private
+
+  def messages_json(messages)
+    jsons = []
+    messages.each do |message|
+      jsons << {content: messages.conente, from_user_id: messages.from_user_id,
+                from_user_name: message.from_user.user_name, create_time: message.created_at}
+    end
+    jsons
+  end
+
 
   def users_json(users)
     jsons = []
