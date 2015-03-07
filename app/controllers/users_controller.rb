@@ -6,7 +6,9 @@ class UsersController < ApplicationController
                     icon_path: params[:icon_path], password: params[:password])
     if user.save
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
-                       icon_path: user.icon_path.url(:thumb), status: user.status, user_id: user.id}
+                       icon_path: user.icon_path.url(:thumb), user_id: user.id,
+                       errorcode: 0, message: '注册成功'
+             }
     else
       render json: {errorcode: 1, message: '用户名或手机号已被占用.'}
     end
