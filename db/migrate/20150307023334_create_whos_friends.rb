@@ -5,7 +5,7 @@ class CreateWhosFriends < ActiveRecord::Migration
       t.belongs_to :friend
       t.integer :status, :default => 1
       t.string :remark
-      t.boolean :black
+      t.boolean :black, :default => false
       t.timestamps null: false
     end
   end

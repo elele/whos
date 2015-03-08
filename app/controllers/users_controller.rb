@@ -48,9 +48,14 @@ class UsersController < ApplicationController
   end
 
   def get_friend
-    user = User.find(params[:id])
+    attrs = conver_params(params[:params])
+    user = User.find(attrs["uid"])
     friends = user.friends
-    render json: {friends: users_json(friends)}
+    render json: {data: {friends: users_json(friends)}}
+
+  end
+
+  def blacklist
 
   end
 
@@ -94,7 +99,7 @@ class UsersController < ApplicationController
     jsons = []
     users.each do |user|
       jsons << {user_name: user.user_name, phone_no: user.phone_no,
-                icon_path: user.icon_path.url(:thumb), status: user.status, id: user.id}
+                icon_path: user.icon, status: user.status, user_id: user.id}
     end
     jsons
   end

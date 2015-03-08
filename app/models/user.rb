@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :whos_friends
+  has_many :whos_friends, -> { where(:black => false) }
   has_many :friends, :class_name => "User", :through => :whos_friends, :source => :friend
   has_many :whos_custom_messages
   has_one :whos_user_device
