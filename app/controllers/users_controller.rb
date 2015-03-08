@@ -38,8 +38,8 @@ class UsersController < ApplicationController
       return render json: {errorcode: 1, message: '不能加自已为好友'} if user == friend
       user.friends << friend
 
-      render json: {data: {user_name: user.user_name, phone_no: user.phone_no,
-                           icon_path: user.icon, user_id: user.id
+      render json: {data: {user_name: friend.user_name, phone_no: friend.phone_no,
+                           icon_path: friend.icon, user_id: friend.id
              }, errorcode: 0, message: '关联好友成功'
              }
     else
