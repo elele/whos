@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
   def self.auth(phone, password)
     User.find_by(:phone_no => phone, password: password)
   end
+
+  def icon
+    self.icon_path.url(:thumb) || ''
+  end
 end

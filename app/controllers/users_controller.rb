@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     user.icon_path = params["face"]
     if user.save!
       render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
-                              icon_path: user.icon_path.url(:thumb), user_id: user.id
+                              icon_path: user.icon, user_id: user.id
              }, errorcode: 0, message: '注册成功'
              }
 
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     user = User.auth(attrs['phone_no'], attrs['password'])
     if user
       render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
-                              icon_path: user.icon_path.url(:thumb), user_id: user.id
+                              icon_path: user.icon, user_id: user.id
              }, errorcode: 0, message: '登录成功'}
     else
       render json: {errorcode: 1, message: '用户名或密码错误'}
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
       user.friends << friend
 
       render json: {data: {user_name: user.user_name, phone_no: user.phone_no,
-                           icon_path: user.icon_path.url(:thumb), user_id: user.id
+                           icon_path: user.icon, user_id: user.id
              }, errorcode: 0, message: '关联好友成功'
              }
     else
