@@ -31,12 +31,18 @@ class UsersController < ApplicationController
   end
 
   def add_friend
-    user = User.find(params[:id])
-    friend = User.find_by(user_name: params[:user_name])
-    user.friends << friend
+    attrs = conver_params(params[:params])
+    user = User.find(attrs["uid"])
+    friend = User.find_by(user_name: attrs["user_name"])
+    if friend
+      user.friends << friend
 
-    render json: {user_name: user.user_name, phone_no: user.phone_no,
-                  icon_path: user.icon_path.url(:thumb), status: user.status, id: user.id}
+      render json: {user_name: user.user_name, phone_no: user.phone_no,
+                    icon_path: user.icon_path.url(:thumb), id: user.id,
+                    errorcode: 0, message: '关联好友成功'}
+    else
+      render json: {errorcode: 1, message: '用户不存在'}
+    end
 
   end
 
