@@ -89,7 +89,7 @@ class UsersController < ApplicationController
     jsons = []
     messages.each do |message|
       jsons << {content: messages.conente, from_user_id: messages.from_user_id,
-                from_user_name: message.from_user.user_name, create_time: message.created_at}
+                from_user_name: message.from_user.user_name, create_time: message.created_at.to_i}
     end
     jsons
   end
@@ -99,7 +99,7 @@ class UsersController < ApplicationController
     jsons = []
     friends.each do |friend|
       jsons << {user_name: friend.user.user_name, remark: friend.remark,
-                recent_timeL: friend.recent_time, user_id: friend.user_id}
+                recent_time: friend.recent_time.to_i, user_id: friend.user_id}
     end
   end
 
