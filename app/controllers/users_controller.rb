@@ -35,6 +35,7 @@ class UsersController < ApplicationController
     user = User.find(attrs["uid"])
     friend = User.find_by(user_name: attrs["user_name"])
     if friend
+      return render json: {errorcode: 1, message: '不能加自已为好友'} if user == friend
       user.friends << friend
 
       render json: {data: {user_name: user.user_name, phone_no: user.phone_no,
