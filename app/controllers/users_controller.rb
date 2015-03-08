@@ -18,11 +18,11 @@ class UsersController < ApplicationController
   end
 
   def login
-    user = User.auth(params["params"]["phone_no"], params["params"]["password"])
+    attrs = conver_params(params[:params])
+    user = User.auth(attrs['phone_no'], attrs['password'])
     if user
-      # user.whos_user_device.update_attributes(params[:params])
       render :json => {user_name: user.user_name, phone_no: user.phone_no,
-                       icon_path: user.icon_path.url(:thumb), status: user.status, user_id: user.id,
+                       icon_path: user.icon_path.url(:thumb), user_id: user.id,
                        errorcode: 0, message: '登录成功'}
     else
       render json: {errorcode: 1, message: '用户名或密码错误'}
