@@ -6,13 +6,13 @@ class UsersController < ApplicationController
     user = User.new(attrs)
     user.icon_path = params["face"]
     if user.save!
-      render :json => {user_name: user.user_name, phone_no: user.phone_no,
-                       icon_path: user.icon_path.url(:thumb), user_id: user.id,
-                       errorcode: 0, message: '注册成功'
+      render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
+                              icon_path: user.icon_path.url(:thumb), user_id: user.id,
+                              errorcode: 0, message: '注册成功'}
              }
 
     else
-      render json: {errorcode: 1, message: '手机号已被占用.'}
+      render json: {data: {errorcode: 1, message: '手机号已被占用.'}}
     end
 
   end
@@ -21,11 +21,11 @@ class UsersController < ApplicationController
     attrs = conver_params(params[:params])
     user = User.auth(attrs['phone_no'], attrs['password'])
     if user
-      render :json => {user_name: user.user_name, phone_no: user.phone_no,
-                       icon_path: user.icon_path.url(:thumb), user_id: user.id,
-                       errorcode: 0, message: '登录成功'}
+      render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
+                              icon_path: user.icon_path.url(:thumb), user_id: user.id,
+                              errorcode: 0, message: '登录成功'}}
     else
-      render json: {errorcode: 1, message: '用户名或密码错误'}
+      render json: {data: {errorcode: 1, message: '用户名或密码错误'}}
     end
 
   end
@@ -37,11 +37,12 @@ class UsersController < ApplicationController
     if friend
       user.friends << friend
 
-      render json: {user_name: user.user_name, phone_no: user.phone_no,
-                    icon_path: user.icon_path.url(:thumb), id: user.id,
-                    errorcode: 0, message: '关联好友成功'}
+      render json: {data: {user_name: user.user_name, phone_no: user.phone_no,
+                           icon_path: user.icon_path.url(:thumb), user_id: user.id,
+                           errorcode: 0, message: '关联好友成功'}
+             }
     else
-      render json: {errorcode: 1, message: '用户不存在'}
+      render json: {data: {errorcode: 1, message: '用户不存在'}}
     end
 
   end
