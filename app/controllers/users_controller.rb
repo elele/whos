@@ -52,11 +52,23 @@ class UsersController < ApplicationController
     user = User.find(attrs["uid"])
     friends = user.whos_friends
     render json: {data: friends_josn(friends)}
+  end
 
+  def all_friend
+    attrs = conver_params(params[:params])
+    user = User.find(attrs["uid"])
+    friends = user.all_whos_friends
+    render json: {data: friends_josn(friends)}
   end
 
   def blacklist
+    attrs = conver_params(params[:params])
+    user = User.find(attrs["uid"])
+  end
 
+  def update_friend_remark
+    attrs = conver_params(params[:params])
+    user = User.find(attrs["uid"])
   end
 
   def send_message
