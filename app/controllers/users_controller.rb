@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     attrs = conver_params(params[:params])
     user = User.find(attrs["uid"])
     friends = user.friends
-    render json: {data: {friends: users_json(friends)}}
+    render json: {data: users_json(friends)}
 
   end
 
