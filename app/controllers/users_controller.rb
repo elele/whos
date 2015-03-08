@@ -51,14 +51,14 @@ class UsersController < ApplicationController
     attrs = conver_params(params[:params])
     user = User.find(attrs["uid"])
     friends = user.whos_friends
-    render json: {data: friends_josn(friends)}
+    render json: {data: friends_josn(friends), errorcode: 0, message: '获取好友列表'}
   end
 
   def all_friend
     attrs = conver_params(params[:params])
     user = User.find(attrs["uid"])
     friends = user.all_whos_friends
-    render json: {data: friends_josn(friends)}
+    render json: {data: friends_josn(friends), errorcode: 0, message: '获取好友列表'}
   end
 
   def blacklist
