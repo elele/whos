@@ -50,8 +50,8 @@ class UsersController < ApplicationController
   def get_friend
     attrs = conver_params(params[:params])
     user = User.find(attrs["uid"])
-    friends = user.friends
-    render json: {data: users_json(friends)}
+    friends = user.whos_friends
+    render json: {data: friends_josn(friends)}
 
   end
 
@@ -95,11 +95,19 @@ class UsersController < ApplicationController
   end
 
 
+  def friends_josn(friends)
+    jsons = []
+    friends.each do |friend|
+      jsons << {user_name: friend.user.user_name, remark: friend.remark,
+                recent_timeL: friend.recent_time, user_id: friend.user_id}
+    end
+  end
+
   def users_json(users)
     jsons = []
     users.each do |user|
       jsons << {user_name: user.user_name, phone_no: user.phone_no,
-                icon_path: user.icon,  user_id: user.id}
+                icon_path: user.icon, user_id: user.id}
     end
     jsons
   end
