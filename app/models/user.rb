@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
   mount_uploader :icon_path, AvatarUploader
 
   def self.auth(phone, password)
-    User.find_by(:phone => phone, password: password)
+    User.find_by(:phone_no => phone, password: password)
   end
 end
