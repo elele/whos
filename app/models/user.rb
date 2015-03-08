@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   end
 
   def icon
-    self.icon_path.url(:thumb) || ''
+   "http://121.40.163.143" + self.icon_path.url(:thumb) || ''
   end
 
   def add_whos
