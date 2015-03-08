@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post :send_message
       post :messages
       post :blacklist
+      post :all_friend
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
