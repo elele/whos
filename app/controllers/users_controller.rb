@@ -99,7 +99,7 @@ class UsersController < ApplicationController
     jsons = []
     users.each do |user|
       jsons << {user_name: user.user_name, phone_no: user.phone_no,
-                icon_path: user.icon, status: user.status, user_id: user.id}
+                icon_path: user.icon,  user_id: user.id}
     end
     jsons
   end
