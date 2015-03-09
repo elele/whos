@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     attrs = conver_params(params[:params])
     user = User.auth(attrs['phone_no'], attrs['password'])
     if user
+      user.update_column(status: 1)
       render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
                               icon_path: user.icon, uid: user.id, status: user.status
              }, errorcode: 0, message: '登录成功'}
@@ -28,6 +29,15 @@ class UsersController < ApplicationController
       render json: {errorcode: 1, message: '用户名或密码错误'}
     end
 
+  end
+
+
+  def logout
+    attrs = conver_params(params[:params])
+    user = User.find_by(id: attrs["uid"])
+    error!('注销失败') if user.blank?
+    user.update_column(status: 0)
+    render json: {data: [],errorcode: 0, message: '注销成功'}
   end
 
   def add_friend
@@ -62,15 +72,50 @@ class UsersController < ApplicationController
     render json: {data: friends_josn(friends), errorcode: 0, message: '获取好友列表'}
   end
 
-  def blacklist
+  def black_manage
     attrs = conver_params(params[:params])
-    user = User.find(attrs["uid"])
+    user = User.find_by(id: attrs["uid"])
+    friend = User.find_by(id: attrs['fuid'])
+    return render json: {errorcode: 1, message: '错误的请求!'} if user.blank? or friend.blank?
+    return render json: {errorcode: 1, message: '你们还不是好友'} if !user.friends.include?(friend)
+    is_black = attrs["black"].to_i == 0 ? false : true
+    who_friend = WhosFriend.find_by(user: user, friend: friend)
+    who_friend.black = is_black
+    who_friend.save
+    render json: {data: {time: Time.now().to_i.to_s, status: attrs['fuid']}, errorcode: 0, message: '编辑好友备注信息成功'}
+
   end
 
   def update_friend_remark
     attrs = conver_params(params[:params])
-    user = User.find(attrs["uid"])
+    user = User.find_by(id: attrs["uid"])
+    friend = User.find_by(id: attrs['fuid'])
+    return render json: {errorcode: 1, message: '错误的请求!'} if user.blank? or friend.blank?
+    return render json: {errorcode: 1, message: '你们还不是好友'} if !user.friends.include?(friend)
+    who_friend = WhosFriend.find_by(user: user, friend: friend)
+    who_friend.remark = attrs["remark"]
+    who_friend.save
+    render json: {data: {fuid: friend.id, remark: attrs["remark"]}, errorcode: 0, message: '编辑好友备注信息成功'}
   end
+
+
+  def set_device
+    attrs = conver_params(params[:params])
+    user = User.find_by(id: attrs['uid'])
+    error!('非法请求') if user.blank?
+    device = user.whos_user_device || user.build_whos_user_device
+    device.system = attrs['system']
+    device.model = attrs['model']
+    device.imei = attrs['imei']
+    device.devicetoken = attrs['devicetoken']
+    device.currentversion = attrs['currentversion']
+    device.lng = attrs['lng']
+    device.lat = attrs['lat']
+    device.status = attrs['status']
+    device.save
+    render json: {data: [], errorcode: 0, message: '设置成功'}
+  end
+
 
   def send_message
     user = User.find(params[:id])
@@ -97,6 +142,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def error!(message)
+    return render json: {errorcode: 1, message: message}
+  end
 
   def messages_json(messages)
     jsons = []
