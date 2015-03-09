@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     user = User.find_by(id: attrs["uid"])
     error!('注销失败') if user.blank?
     user.update_column(status: 0)
-    render json: {data: [],errorcode: 0, message: '注销成功'}
+    render json: {data: [], errorcode: 0, message: '注销成功'}
   end
 
   def add_friend
@@ -118,11 +118,19 @@ class UsersController < ApplicationController
 
 
   def send_message
-    user = User.find(params[:id])
-    reveice = User.find(params[:reveice_id])
-    WhosCustomMessage.create(user: user, reveice: reveice, content: params[:content], path: params[:path],
-                             message_type: params[:type], address: params[:address], lat: params[:lat], lng: params[:lng])
-    render json: {message: 'ok', errorcode: '', status: 200}
+    attrs = params[:params]
+    user = User.find_by(id: attrs['uid'])
+    friends = User.where(id: attrs["fuid"].split(','))
+    error!('非法请求') if user.blank?
+    to_friends = user.friends & friends
+    # reveice = User.find(params[:reveice_id])
+    to_friends.each do |f|
+      WhosCustomMessage.create(user: user, reveice: f, content: attrs["content"], path: attrs["path"],
+                               message_type: attrs["type"], address: attrs["address"],
+                               lat: attrs["lat"], lng: attrs["lng"])
+    end
+
+    render json: {data: {time: Time.now.to_i.to_s}, message: '消息发送成功', errorcode: 0}
 
   end
 
