@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     user.icon_path = params["face"]
     if user.save!
       render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
-                              icon_path: user.icon, user_id: user.id
+                              icon_path: user.icon, uid: user.id, status: user.status
              }, errorcode: 0, message: '注册成功'
              }
 
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     user = User.auth(attrs['phone_no'], attrs['password'])
     if user
       render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
-                              icon_path: user.icon, user_id: user.id
+                              icon_path: user.icon, uid: user.id, status: user.status
              }, errorcode: 0, message: '登录成功'}
     else
       render json: {errorcode: 1, message: '用户名或密码错误'}
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
       user.friends << friend
 
       render json: {data: {user_name: friend.user_name, phone_no: friend.phone_no,
-                           icon_path: friend.icon, user_id: friend.id
+                           icon_path: friend.icon, uid: friend.id, time: friend.recent_time.to_i.to_s
              }, errorcode: 0, message: '关联好友成功'
              }
     else
@@ -111,8 +111,8 @@ class UsersController < ApplicationController
   def friends_josn(friends)
     jsons = []
     friends.each do |friend|
-      jsons << {user_name: friend.friend.user_name, remark: friend.remark || '',
-                recent_time: friend.recent_time.to_i.to_s, user_id: friend.friend_id, black: friend.black ? 1 : 0}
+      jsons << {user_name: friend.friend.user_name, remark: friend.remark || '', icon_path: friend.icon,
+                time: friend.recent_time.to_i.to_s, uid: friend.friend_id, black: friend.black ? 1 : 0}
     end
     jsons
   end
