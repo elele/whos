@@ -145,10 +145,6 @@ class UsersController < ApplicationController
   end
 
 
-  def set_device
-
-  end
-
   private
 
   def error!(message)
