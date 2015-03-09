@@ -75,19 +75,21 @@ module OPE
     end
 
     def push_audiences
-      if self.receiver.is_a? User
-        audience = JPush::Audience.build(_alias: [self.receiver.mobile_alias])
-      elsif !receiver
+      if self.whos_user_device
+        audience = JPush::Audience.build(registration_id: [self.whos_user_device.devicetoken])
+      else
         audience = JPush::Audience.all
       end
     end
 
     def ios_platform?
-      self.receiver && self.receiver.app_platform && self.receiver.app_platform.downcase.match(/ios/)
+      # self.receiver && self.receiver.app_platform && self.receiver.app_platform.downcase.match(/ios/)
+      self.whos_user_device && self.whos_user_device.devicetoken && self.whos_user_device.devicetoken.downcase.match(/ios/)
     end
 
     def android_platform?
-      self.receiver && self.receiver.app_platform && self.receiver.app_platform.downcase.match(/android/)
+      self.whos_user_device && self.whos_user_device.devicetoken && self.whos_user_device.devicetoken.downcase.match(/android/)
+      # self.receiver && self.receiver.app_platform && self.receiver.app_platform.downcase.match(/android/)
     end
 
     def no_platform?
