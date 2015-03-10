@@ -25,6 +25,8 @@ class WhosCustomMessage < ActiveRecord::Base
           type: message_type
 
       }
+    elsif message_type == 2
+      {type: message_type}
     end
   end
 
