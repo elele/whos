@@ -19,16 +19,10 @@ class WhosCustomMessage < ActiveRecord::Base
   def options
     {
         uid: user.id,
-        fuid: reveice.id,
-        type: message_type,
-        path: path,
-        content: {
+        lat: lat,
+        lng: lng
 
-            lat: lat,
-            lng: lng,
-            user_name: user.user_name
-        }
-    }.to_s
+    }
   end
 
 

@@ -74,9 +74,9 @@ module OPE
     def push_message
       case self.message_type
         when 0, 2
-          "来自#{self.user.user_name}"
+          "来自 #{self.user.user_name}"
         when 1
-          "#{self.user.user_name}@位置"
+          "#{self.user.user_name} @位置"
       end
     end
 
