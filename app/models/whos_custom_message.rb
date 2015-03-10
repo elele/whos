@@ -17,12 +17,14 @@ class WhosCustomMessage < ActiveRecord::Base
 
 
   def options
-    {
-        uid: user.id,
-        lat: lat,
-        lng: lng
+    if message_type == 1
+      {
+          uid: user.id,
+          lat: lat,
+          lng: lng
 
-    }
+      }
+    end
   end
 
 
