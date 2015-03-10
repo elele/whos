@@ -82,7 +82,7 @@ class UsersController < ApplicationController
     who_friend = WhosFriend.find_by(user: user, friend: friend)
     who_friend.black = is_black
     who_friend.save
-    render json: {data: {time: Time.now().to_i.to_s, status: attrs['fuid']}, errorcode: 0, message: '编辑好友备注信息成功'}
+    render json: {data: {time: Time.now().to_i.to_s, status: attrs['fuid']}, errorcode: 0, message: '好友管理成功'}
 
   end
 
