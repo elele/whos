@@ -84,7 +84,7 @@ class UsersController < ApplicationController
       user.friends << friend
 
       render json: {data: {user_name: friend.user_name, phone_no: friend.phone_no,
-                           icon_path: friend.icon, uid: friend.id, time: friend.recent_time.to_i.to_s
+                           icon_path: friend.icon, uid: friend.id, time: Time.now.to_i.to_s
              }, errorcode: 0, message: '关联好友成功'
              }
     else
