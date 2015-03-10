@@ -84,11 +84,11 @@ module OPE
 
     def ios_platform?
       # self.receiver && self.receiver.app_platform && self.receiver.app_platform.downcase.match(/ios/)
-      self.whos_user_device && self.whos_user_device.devicetoken && self.whos_user_device.devicetoken.downcase.match(/ios/)
+      self.whos_user_device && self.whos_user_device.model && self.whos_user_device.model.downcase.match(/ios/)
     end
 
     def android_platform?
-      self.whos_user_device && self.whos_user_device.devicetoken && self.whos_user_device.devicetoken.downcase.match(/android/)
+      self.whos_user_device && self.whos_user_device.model && self.whos_user_device.model.downcase.match(/android/)
       # self.receiver && self.receiver.app_platform && self.receiver.app_platform.downcase.match(/android/)
     end
 
