@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
-  has_many :whos_friends#, -> { where(:black => false) }
-  has_many :all_whos_friends, :class_name => "WhosFriend"
+  has_many :whos_friends #, -> { where(:black => false) }
+  has_many :valid_who_friends, -> { where(:black => false) }, :class_name => "WhosFriend"
   has_many :friends, :class_name => "User", :through => :whos_friends, :source => :friend
+  has_many :valid_friends, :class_name => "User", :through => :valid_who_friends, :source => :friend
   has_many :whos_custom_messages
   has_one :whos_user_device
 
@@ -16,7 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def icon
-   "http://121.40.163.143" + self.icon_path.url(:thumb) || ''
+    "http://121.40.163.143" + self.icon_path.url(:thumb) || ''
   end
 
   def add_whos
