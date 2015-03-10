@@ -39,7 +39,8 @@ module OPE
                   extras: nil,
                   #title: "ios notification title test",
                   badge: 0,
-                  content_available: self.options
+                  content_available: self.options,
+                  category: "whos"
               #extras: options
               )
           )
