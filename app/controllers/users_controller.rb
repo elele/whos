@@ -4,11 +4,10 @@ class UsersController < ApplicationController
   def index
     case request.subdomain
       when 'm'
-        redirect_to mobile_users_path
+        redirect_to mobile_users_path, :layout => false
       else
         render :layout => false
     end
-
   end
 
   def mobile
