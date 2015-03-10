@@ -5,7 +5,16 @@ class WhosCustomMessage < ActiveRecord::Base
   belongs_to :reveice, class_name: "User"
   has_one :send_whos_user_device, :through => :user, :class_name => "WhosUserDevice"
   has_one :whos_user_device, :through => :reveice
+
+  before_create :set_reveice
   after_create :pushout
+
+  def set_reveice
+    if reveice == User.whos_user
+      self.reveice = self.user
+    end
+  end
+
 
   def options
     {
