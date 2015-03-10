@@ -4,7 +4,7 @@ class WhosCustomMessage < ActiveRecord::Base
   has_one :whos_user_device ,:through => :user
   belongs_to :reveice, class_name: "User"
 
-  after_create :pushout
+  # after_create :pushout
 
   def options
      {}
