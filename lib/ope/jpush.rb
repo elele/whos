@@ -76,7 +76,7 @@ module OPE
 
     def push_audiences
       if self.whos_user_device
-        audience = JPush::Audience.build(registration_id: [self.whos_user_device.devicetoken])
+        audience = JPush::Audience.build(registration_id: [self.whos_user_device.registration_id])
       else
         audience = JPush::Audience.all
       end
