@@ -165,7 +165,7 @@ class UsersController < ApplicationController
     to_friends.each do |f|
       WhosCustomMessage.create(user: user, reveice: f, content: attrs["content"],
                                message_type: attrs["type"],
-                               lat: attrs["content"]["lat"], lng: attrs["content"]["lng"])
+                               lat: (attrs["content"]["lat"] rescue ""), lng: (attrs["content"]["lng"] rescue ""))
     end
 
     render json: {data: {time: Time.now.to_i.to_s}, message: '消息发送成功', errorcode: 0}
