@@ -26,6 +26,6 @@ class User < ActiveRecord::Base
 
 
   def self.whos_user
-    self.where(:user_name => "Who's机器人", :phone_no => '8888888888', :password => '123456', :id => 1).first_or_create
+    self.find_by(:id => 1)
   end
 end
