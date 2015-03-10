@@ -17,6 +17,26 @@ class UsersController < ApplicationController
 
   end
 
+  def update_user
+    attrs = conver_params(params["params"])
+    user = User.find_by(id: attrs["uid"])
+    if user.blank?
+      return render json: {errorcode: 1, message: '错误的请求.'}
+    end
+    attrs.delete("uid")
+    user.update_attributes(attrs)
+    user.icon_path = params["face"]
+    if user.save
+      render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
+                              icon_path: user.icon, uid: user.id, status: user.status
+             }, errorcode: 0, message: '修改成功'
+             }
+    else
+      render json: {errorcode: 1, message: '修改失败.'}
+    end
+
+  end
+
   def login
     attrs = conver_params(params[:params])
     user = User.auth(attrs['phone_no'], attrs['password'])

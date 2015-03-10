@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       post :update_friend_remark
       post :set_device
       post :logout
+      post :update_user
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
