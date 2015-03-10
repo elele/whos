@@ -158,12 +158,12 @@ class UsersController < ApplicationController
     user = User.find_by(id: attrs['uid'])
     friends = User.where(id: attrs["fuid"].split(','))
     error!('非法请求') if user.blank?
-    to_friends = user.friends & friends
+    to_friends = user.friends.where(:black => false) & friends
     # reveice = User.find(params[:reveice_id])
     to_friends.each do |f|
       WhosCustomMessage.create(user: user, reveice: f, content: attrs["content"], path: attrs["path"],
                                message_type: attrs["type"], address: attrs["address"],
-                               lat: attrs["lat"], lng: attrs["lng"])
+                               lat: attrs["content"]["lat"], lng: attrs["content"]["lng"])
     end
 
     render json: {data: {time: Time.now.to_i.to_s}, message: '消息发送成功', errorcode: 0}
