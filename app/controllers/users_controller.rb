@@ -148,6 +148,7 @@ class UsersController < ApplicationController
     device.lat = attrs['lat']
     device.status = attrs['status']
     device.registration_id = attrs["registration_id"]
+    device.production = attrs["production"]
     device.save
     render json: {data: [], errorcode: 0, message: '设置成功'}
   end

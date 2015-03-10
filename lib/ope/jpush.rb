@@ -30,7 +30,7 @@ module OPE
           audience: push_audiences,
           platform: platform,
           options: JPush::Options.build(
-              apns_production: 1 #Rails.env.production? || Rails.env.beta?
+              apns_production: self.whos_user_device.production #Rails.env.production? || Rails.env.beta?
           ),
           notification: JPush::Notification.build(
               alert: push_message,
@@ -52,7 +52,7 @@ module OPE
           audience: push_audiences,
           platform: push_platform,
           options: JPush::Options.build(
-              apns_production: 1 #Rails.env.production? || Rails.env.beta?
+              apns_production: self.whos_user_device.production #Rails.env.production? || Rails.env.beta?
           ),
           message: JPush::Message.build(
               msg_content: push_message,
@@ -63,7 +63,7 @@ module OPE
               options: JPush::Options.build(
                   sendno: self.id,
                   time_to_live: 0,
-                  apns_production: 1 #Rails.env.production? || Rails.env.beta?
+                  apns_production: self.whos_user_device.production #Rails.env.production? || Rails.env.beta?
               )
           )
       )
