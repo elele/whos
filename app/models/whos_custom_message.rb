@@ -29,7 +29,7 @@ class WhosCustomMessage < ActiveRecord::Base
             lng: lng,
             user_name: user.user_name
         }
-    }
+    }.to_s
   end
 
 

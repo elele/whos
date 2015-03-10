@@ -5,9 +5,14 @@ class WhosFriend < ActiveRecord::Base
   scope :white_list, -> { where(:black => false) }
   default_scope { order(:recent_time => :desc) }
 
-  before_create :set_recent_time
+  before_create :set_recent_time,:add_custom_message
 
   def set_recent_time
     self.recent_time = Time.now
+  end
+
+
+  def add_custom_message
+
   end
 end
