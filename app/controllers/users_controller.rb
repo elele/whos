@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
+
+  def index
+    render :layout => false
+  end
+
   # 注册用户
   def create
     attrs = conver_params(params["params"])
