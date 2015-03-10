@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post :set_device
       post :logout
       post :update_user
+      get :mobile
     end
   end
 
