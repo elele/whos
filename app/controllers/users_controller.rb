@@ -2,7 +2,17 @@ class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-    render :layout => false
+    case request.subdomain
+      when 'm'
+        redirect_to mobile_users_path
+      else
+        render :layout => false
+    end
+
+  end
+
+  def mobile
+
   end
 
   # 注册用户
