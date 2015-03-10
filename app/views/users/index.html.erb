@@ -1,14 +1,9 @@
 <script type="text/javascript">
-    try {
-        var urlhash = window.location.hash;
-        if (!urlhash.match("fromapp")) {
-            if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i))) {
-                window.location = "http://m.feelwho.com";
-            }
-        }
+
+    if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i))) {
+        window.location = "http://m.feelwho.com";
     }
-    catch (err) {
-    }
+
 </script>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
