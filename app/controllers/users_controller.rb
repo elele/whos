@@ -23,8 +23,8 @@ class UsersController < ApplicationController
     if user.blank?
       return render json: {errorcode: 1, message: '错误的请求.'}
     end
-    attrs.delete("uid")
-    user.update_attributes(attrs)
+
+    user.user_name = attrs["user_name"]
     user.icon_path = params["face"]
     if user.save
       render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
