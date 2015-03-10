@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     end
 
     user.user_name = attrs["user_name"]
-    user.icon_path = params["face"]
+    user.icon_path = params["face"] if params["face"]
     if user.save
       render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
                               icon_path: user.icon, uid: user.id, status: user.status
