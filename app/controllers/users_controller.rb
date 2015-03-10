@@ -164,7 +164,7 @@ class UsersController < ApplicationController
   def friends_josn(friends)
     jsons = []
     friends.each do |friend|
-      jsons << {user_name: friend.friend.user_name, remark: friend.remark || '', icon_path: friend.icon,
+      jsons << {user_name: friend.friend.user_name, remark: friend.remark || '', icon_path: friend.friend.icon,
                 time: friend.recent_time.to_i.to_s, uid: friend.friend_id, black: friend.black ? 1 : 0}
     end
     jsons
