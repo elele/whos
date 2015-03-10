@@ -25,7 +25,6 @@ module OPE
 
     def notification_payload platform
       platform ||= push_platform
-      badge = self.options['badge'] || "+1"
       payload = JPush::PushPayload.build(
           audience: push_audiences,
           platform: platform,
@@ -36,10 +35,11 @@ module OPE
               alert: push_message,
               ios: JPush::IOSNotification.build(
                   alert: push_message,
-                  sound: 'default',
-                  extras: options,
+                  sound: 'who.caf',
+                  extras: nil,
                   #title: "ios notification title test",
-                  badge: badge,
+                  badge: 0,
+                  content_available: self.options
               #extras: options
               )
           )
@@ -71,7 +71,12 @@ module OPE
     end
 
     def push_message
-      self.content ? self.content.squish.truncate(50) : ""
+      case self.message_type
+        when 0, 2
+          "来自#{self.user.user_name}"
+        when 1
+          "#{self.user.user_name}@位置"
+      end
     end
 
     def push_audiences
