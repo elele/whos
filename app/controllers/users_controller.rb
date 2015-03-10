@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     attrs = conver_params(params[:params])
     user = User.auth(attrs['phone_no'], attrs['password'])
     if user
-      user.update_column(status: 1)
+      user.update_columns(status: 1)
       render :json => {data: {user_name: user.user_name, phone_no: user.phone_no,
                               icon_path: user.icon, uid: user.id, status: user.status
              }, errorcode: 0, message: '登录成功'}
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     attrs = conver_params(params[:params])
     user = User.find_by(id: attrs["uid"])
     error!('注销失败') if user.blank?
-    user.update_column(status: 0)
+    user.update_columns(status: 0)
     render json: {data: [], errorcode: 0, message: '注销成功'}
   end
 
