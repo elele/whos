@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     friend = User.find_by(id: attrs['fuid'])
     return render json: {errorcode: 1, message: '错误的请求!'} if user.blank? or friend.blank?
     return render json: {errorcode: 1, message: '你们还不是好友'} if !user.friends.include?(friend)
-    is_black = attrs["black"].to_i == 0 ? false : true
+    is_black = attrs["is_black"].to_i == 0 ? false : true
     who_friend = WhosFriend.find_by(user: user, friend: friend)
     who_friend.black = is_black
     who_friend.save
