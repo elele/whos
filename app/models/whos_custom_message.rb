@@ -21,7 +21,8 @@ class WhosCustomMessage < ActiveRecord::Base
       {
           uid: user.id,
           lat: lat,
-          lng: lng
+          lng: lng,
+          type: message_type
 
       }
     end
