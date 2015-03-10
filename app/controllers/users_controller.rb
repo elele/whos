@@ -154,7 +154,7 @@ class UsersController < ApplicationController
 
 
   def send_message
-    attrs = params[:params]
+    attrs = conver_params(params[:params])
     Rails.logger.info("uid #{attrs['uid']}")
     user = User.find_by(id: attrs['uid'])
     Rails.logger.info("uid #{user.id}")
