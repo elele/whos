@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   # 注册用户
   def create
     attrs = conver_params(params["params"])
+    attrs.delete("resolution")
     user = User.new(attrs)
     user.icon_path = params["face"]
     if user.save!
