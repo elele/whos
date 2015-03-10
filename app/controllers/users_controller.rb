@@ -82,6 +82,7 @@ class UsersController < ApplicationController
     if friend
       return render json: {errorcode: 1, message: '不能加自已为好友'} if user == friend
       user.friends << friend
+      friend.friends << user
 
       render json: {data: {user_name: friend.user_name, phone_no: friend.phone_no,
                            icon_path: friend.icon, uid: friend.id, time: Time.now.to_i.to_s
