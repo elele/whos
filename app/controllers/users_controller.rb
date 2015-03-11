@@ -185,6 +185,11 @@ class UsersController < ApplicationController
   end
 
 
+  def privacy
+    render :layout => false
+  end
+
+
   private
 
   def error!(message)
