@@ -160,7 +160,7 @@ class UsersController < ApplicationController
     Rails.logger.info("uid #{attrs['uid']}")
     user = User.find_by(id: attrs['uid'])
     Rails.logger.info("uid #{user.id}")
-    friends = User.where(id: attrs["fuid"].split(','))
+    friends = User.where(id: attrs["fuid"].to_s.split(','))
     error!('非法请求') if user.blank?
     to_friends = user.valid_friends & friends
     # reveice = User.find(params[:reveice_id])
