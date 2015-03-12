@@ -11,7 +11,7 @@ class WhosCustomMessage < ActiveRecord::Base
   def set_reveice
     if reveice == User.whos_user
       self.reveice = self.user
-      self.message_type = 0
+      self.message_type = 3
     end
   end
 
