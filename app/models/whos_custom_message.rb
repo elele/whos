@@ -5,13 +5,20 @@ class WhosCustomMessage < ActiveRecord::Base
   has_one :send_whos_user_device, :through => :user, :class_name => "WhosUserDevice"
   has_one :whos_user_device, :through => :reveice
 
-  before_create :set_reveice
+  before_create :set_reveice, :set_recent_time
   after_create :pushout
 
   def set_reveice
     if reveice == User.whos_user
       self.reveice = self.user
       self.message_type = 3
+    end
+  end
+
+  def set_recent_time
+    who_friend = WhosFriend.where(user: user, friend: reveice)
+    if who_friend
+      who_friend.update_columns(recent_time: Time.now)
     end
   end
 
