@@ -34,7 +34,7 @@ class WhosCustomMessage < ActiveRecord::Base
       }
     elsif message_type == 2
       {type: message_type}
-    elsif message_type ==3
+    elsif message_type == 3 or message_type == 0
       {
           uid: user.id,
           type: message_type
