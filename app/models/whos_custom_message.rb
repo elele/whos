@@ -24,7 +24,7 @@ class WhosCustomMessage < ActiveRecord::Base
 
 
   def options
-    if message_type == 1
+    if message_type == 1 or message_type == 3
       {
           uid: user.id,
           lat: lat,
