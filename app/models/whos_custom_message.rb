@@ -10,6 +10,10 @@ class WhosCustomMessage < ActiveRecord::Base
 
   def set_reveice
     if reveice == User.whos_user
+      who_friend = WhosFriend.where(user: user, friend: reveice).first
+      if who_friend
+        who_friend.update_columns(recent_time: Time.now)
+      end
       self.reveice = self.user
       self.message_type = 3
     end
