@@ -17,8 +17,10 @@ class WhosCustomMessage < ActiveRecord::Base
 
   def set_recent_time
     who_friend = WhosFriend.where(user: user, friend: reveice).first
-    if who_friend
+    reveice_friend = WhosFriend.where(user: friend, friend: user)
+    if who_friend && reveice_friend
       who_friend.update_columns(recent_time: Time.now)
+      reveice_friend.update_columns(recent_time: Time.now)
     end
   end
 
