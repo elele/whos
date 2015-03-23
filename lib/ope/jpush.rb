@@ -29,6 +29,7 @@ module OPE
           audience: push_audiences,
           platform: platform,
           options: JPush::Options.build(
+              time_to_live: 86400,
               apns_production: self.whos_user_device.production #Rails.env.production? || Rails.env.beta?
           ),
           notification: JPush::Notification.build(
