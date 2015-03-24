@@ -135,9 +135,9 @@ module OPE
           #JPushClient.sendPush message_payload
           # if self.receiver and (ios_platform? || no_platform?)
           # if self.apns and self.receiver
-          if self.reveice.status == 1
-            send_payload notification_payload(JPush::Platform.new(ios: true))
-          end
+          # if self.reveice.status == 1
+          send_payload notification_payload(JPush::Platform.new(ios: true))
+            # end
             # end
             # self.update_columns result: push_result.toJSON, sendout_at: Time.now, broadcast: !self.receiver
 
