@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :whos_friends #, -> { where(:black => false) }
   has_many :valid_who_friends, -> { where(:black => false) }, :class_name => "WhosFriend"
+  has_many :invalid_who_friends, -> { where(:black => true) }, :class_name => "WhosFriend"
   has_many :friends, :class_name => "User", :through => :whos_friends, :source => :friend
   has_many :valid_friends, :class_name => "User", :through => :valid_who_friends, :source => :friend
   has_many :whos_custom_messages
@@ -22,6 +23,13 @@ class User < ActiveRecord::Base
 
   def add_whos
     self.friends << User.whos_user
+  end
+
+
+  def to_friends(friends)
+    return [] if friends.blank?
+    friends.delete_if { |f| f.invalid_who_friends.include?(self) }
+    self.valid_friends & friends
   end
 
 

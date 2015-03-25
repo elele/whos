@@ -163,7 +163,7 @@ class UsersController < ApplicationController
     Rails.logger.info("uid #{user.id}")
     friends = User.where(id: attrs["fuid"].to_s.split(','))
     error!('非法请求') if user.blank?
-    to_friends = user.valid_friends & friends
+    to_friends = user.to_friends(friends)
     # reveice = User.find(params[:reveice_id])
     to_friends.each do |f|
       WhosCustomMessage.create(user: user, reveice: f, content: attrs["content"],
