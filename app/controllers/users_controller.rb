@@ -72,6 +72,7 @@ class UsersController < ApplicationController
     user = User.find_by(id: attrs["uid"])
     error!('注销失败') if user.blank?
     user.update_columns(status: 0)
+    user.whos_user_device.update_column(registration_id: nil)
     render json: {data: [], errorcode: 0, message: '注销成功'}
   end
 
