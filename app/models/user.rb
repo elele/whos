@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :invalid_who_friends, -> { where(:black => true) }, :class_name => "WhosFriend"
   has_many :friends, :class_name => "User", :through => :whos_friends, :source => :friend
   has_many :valid_friends, :class_name => "User", :through => :valid_who_friends, :source => :friend
+  has_many :invalid_friends, :class_name => "User", :through => :invalid_who_friends, :source => :friend
   has_many :whos_custom_messages
   has_one :whos_user_device
 
@@ -28,7 +29,7 @@ class User < ActiveRecord::Base
 
   def to_friends(friends)
     return [] if friends.blank?
-    friends.delete_if { |f| f.invalid_who_friends.include?(self) }
+    friends.delete_if { |f| f.invalid_friends.include?(self) }
     self.valid_friends & friends
   end
 
